@@ -40,3 +40,29 @@ public int maxProfit(final int[] A) {
 
     return maxProfit;
 }
+```
+
+## ✅ Optimal Approach – O(n) time | O(1) space
+
+```java
+public int maxProfit(final int[] A) {
+    if (A == null || A.length == 0) {
+        return 0;
+    }
+
+    int n = A.length;
+    int maxProfit = 0;
+    int currmin = A[0];
+
+    for (int i = 1; i < n; i++) {
+        int profit = A[i] - currmin;
+        maxProfit = Math.max(profit, maxProfit);
+
+        if (A[i] < currmin) {
+            currmin = A[i];
+        }
+    }
+
+    return maxProfit;
+}
+```
