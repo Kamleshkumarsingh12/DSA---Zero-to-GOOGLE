@@ -15,4 +15,14 @@ This repository contains:
 ## 📁 Structure
 
 The content is organized topic-wise and pattern-wise for easy reference:
+DSA-Zero-to-GOOGLE/
+├── Arrays.md
+├── Strings.md
+├── Hashing.md
+├── TwoPointers.md
+├── Recursion.md
+├── DynamicProgramming.md
+├── README.md
+
+
 
