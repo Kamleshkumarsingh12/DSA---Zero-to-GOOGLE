@@ -1,4 +1,4 @@
-## 📌 Count "AG" Pairs in a String (Brute Force)
+## 📌 Count "AG" Pairs in a String
 
 **Problem Statement:**
 Count the number of pairs `(i, j)` in a string `A` such that `i < j`, `A[i] == 'A'`, and `A[j] == 'G'`.
