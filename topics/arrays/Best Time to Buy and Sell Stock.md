@@ -43,22 +43,25 @@ public int maxProfit(final int[] A) {
 ```
 
 ## ✅ Optimal Approach – O(n) time | O(1) space
+// Track the lowest price seen so far(which basically will be the first ele at first),
+    start the iteration from i=1 and calculate profit if sold today.
+// Keep updating the maximum profit at every iteration.
 
 ```java
 public int maxProfit(final int[] A) {
-    if (A == null || A.length == 0) {
+    if (A == null || A.length == 0) {    //for edge case if array is empty
         return 0;
     }
 
     int n = A.length;
     int maxProfit = 0;
-    int currmin = A[0];
+    int currmin = A[0];     //current minimum val is first ele
 
     for (int i = 1; i < n; i++) {
-        int profit = A[i] - currmin;
-        maxProfit = Math.max(profit, maxProfit);
+        int profit = A[i] - currmin;   //calculating profit
+        maxProfit = Math.max(profit, maxProfit);  //calculating maxprofit 
 
-        if (A[i] < currmin) {
+        if (A[i] < currmin) {        //to get the new min value if current i value is < currmin val
             currmin = A[i];
         }
     }
