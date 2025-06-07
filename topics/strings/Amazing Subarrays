@@ -6,10 +6,10 @@ to us character se start hone waali substrings ki total sankhya hoti hai: ➡️
 *Use of modulo (% 10003) to avoid integer overflow
 
 
-# 🧠 Amazing Substrings (Optimized Java Approach)
+## 🧠 Amazing Substrings (Optimized Java Approach)
 
-### 📌 Problem Statement  
-Given a string `A`, find the number of **amazing substrings** of `A`.  
+📌** Problem Statement**
+Given a string `A`, find the number of **amazing substrings** of `A`.
 An **amazing substring** is any substring that **starts with a vowel** (a, e, i, o, u — upper or lowercase).
 
 ---
