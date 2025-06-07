@@ -30,3 +30,31 @@ public int bulbs(int[] A) {
     }
     return c;
 }
+
+
+⚡ Optimized Greedy – O(n) Time | O(1) Space
+🧠 Logic (Optimized):
+ - Track how many times you’ve flipped (c). 
+ - Use c % 2 to determine the current logical state of the bulb (even flips = actual value, odd flips = inverted).
+ - If a bulb is OFF in the current state → flip it.
+
+```java
+ public int bulbs(int[] A) {
+        int n = A.length;
+        int c = 0;
+        for(int i=0;i<n;i++)
+        {
+            int state = A[i];        //to check if we need to flip we store the current switch state
+            if(c % 2  == 0){
+                state = A[i];        //if even, the value remains same
+            }
+            else
+            {
+                state = 1-A[i];        //when odd, the switch flips
+            }
+            if(state == 0){
+                c++;
+            }
+        }
+        return c;
+    }
