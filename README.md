@@ -9,7 +9,7 @@ This repository contains:
 - 🧠 Key concepts and patterns
 - 🔍 Brute-force and optimized solutions
 - 💻 Java code snippets with explanations
-
+- 🧑‍💻 New questions everyday
 ---
 
 ## 📁 Structure
