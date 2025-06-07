@@ -12,7 +12,7 @@ Return "YES" if it is possible; otherwise, return "NO" (without quotes).
 For splitting array into subarrays in even length, size of the array should be even.
 Also, A[0] and A[n-1] i.e. first and last ele should be even else we can create subarrays with first and last ele being even.
 
-Working CODE -> TC - O(N),  SC - o(1)
+💻 Working CODE -> TC - O(N),  SC - o(1)
 ```JAVA
  public String solve(int[] A) {
         int n = A.length;
