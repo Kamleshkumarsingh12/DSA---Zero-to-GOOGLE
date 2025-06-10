@@ -5,6 +5,10 @@ You are given an integer array A.
 Decide whether it is possible to divide the array into one or more subarrays of even length such that the first and last element of all subarrays will be even.
 Return "YES" if it is possible; otherwise, return "NO" (without quotes).
 
+->Example
+ A = [2, 4, 8, 6]
+Output = "YES"
+ - We can divide A into [2, 4] and [8, 6].
 
 ---
 
@@ -17,7 +21,7 @@ Also, A[0] and A[n-1] i.e. first and last ele should be even else we can create 
  public String solve(int[] A) {
         int n = A.length;
         String ans = "";
-         if(A[0]%2 == 0 && A[n-1]%2 == 0 && n%2 == 0)
+         if(A[0]%2 == 0 && A[n-1]%2 == 0 && n%2 == 0)  //first and last ele should be even to proceed
          {
              ans = "YES";
          }
