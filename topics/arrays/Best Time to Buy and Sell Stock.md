@@ -8,6 +8,9 @@ If no profit is possible, return `0`.
 **Platform:** LeetCode  
 [🔗 Problem Link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 
+**Example**
+A = [1, 4, 5, 2, 4]
+Ouput = 4 => Buy the stock on day 0, and sell it on day 2.
 ---
 
 ## 🧠 Brute Force Approach
