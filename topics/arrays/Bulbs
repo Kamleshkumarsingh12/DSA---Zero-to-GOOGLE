@@ -7,6 +7,12 @@
 🔗 Problem Link: [InterviewBit – Bulbs](https://www.interviewbit.com/problems/bulbs/)  
 🧠 Tags: Greedy, Arrays
 
+--------------------
+->Example:
+A = [0, 1, 0, 1]
+Output = 4
+--------------------
+
 🧠 Intuition:
 Each time you encounter a bulb that is OFF, press its switch.
 This toggles it and all bulbs to the right.
