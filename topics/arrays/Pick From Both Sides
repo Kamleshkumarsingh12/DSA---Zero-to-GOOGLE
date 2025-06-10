@@ -40,6 +40,8 @@ public int solve(int[] A, int B) {
     return maxSum;
 }
 
+-------------------------------------------------------------------------------------------------------------------------------------------  
+
 
 ### ⚡ Optimized – Sliding Window (O(B))
 Start by taking the first B elements, then slide the window by gradually replacing elements from the front with elements from the back.
