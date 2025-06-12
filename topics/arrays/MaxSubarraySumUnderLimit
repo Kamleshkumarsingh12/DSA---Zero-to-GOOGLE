@@ -1,0 +1,40 @@
+## 📦 Max Subarray Sum Not Exceeding B
+
+> You're given an integer array `C` of size `A`.  
+> Your task is to find a contiguous subarray such that the **sum of its elements is maximum**, but **does not exceed** a given number `B`.
+
+🔗 Platform: Common Interview/Contest Question  
+🧠 Tags: Arrays, Brute Force, Subarrays, Two Pointers (Optimizable)
+
+---
+
+### 🐢 Brute Force – O(n²) Time
+
+Try every possible subarray starting from each index `i` and compute the sum.
+
+```java
+public class Solution {
+    public int maxSubarray(int A, int B, int[] C) {
+        int ans = 0;
+
+        for (int i = 0; i < A; i++) {
+            int sum = 0;
+
+            for (int j = i; j < A; j++) {
+                sum += C[j];
+
+                if (sum <= B) {
+                    ans = Math.max(ans, sum);
+                }
+            }
+        }
+
+        return ans;
+    }
+}
+```
+
+🧠 Intuition:
+-For every starting index i, you explore all subarrays ending at j ≥ i.
+-Track the sum and only update answer if it is ≤ B.
+-This is brute force — can be optimized using sliding window (only if all numbers are non-negative).
