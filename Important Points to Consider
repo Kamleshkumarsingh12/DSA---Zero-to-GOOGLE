@@ -4,3 +4,7 @@ Some important points and tips to consider:
 - To find total sum of all subarray sum, just use contribution technique {sum += (i+1) * (n-1)}
 - Jab bhi tum kisi loop ke andar ek list bana rahe ho aur usse result mein daal rahe ho,
     hamesha uska copy banake daalo — warna sab result same reference ban jaayenge.
+- Generally:
+    Contribution technique: Use when working with all subarrays/subsequences without specific conditions.
+    Avoid contribution: When there's a condition (like sum < B) that affects individual subarrays differently.
+    Remember, these are guidelines, not strict rules. The key is understanding the problem's requirements and choosing the most appropriate technique.
