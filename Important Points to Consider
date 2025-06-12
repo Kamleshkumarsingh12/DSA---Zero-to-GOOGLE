@@ -8,3 +8,6 @@ Some important points and tips to consider:
     Contribution technique: Use when working with all subarrays/subsequences without specific conditions.
     Avoid contribution: When there's a condition (like sum < B) that affects individual subarrays differently.
     Remember, these are guidelines, not strict rules. The key is understanding the problem's requirements and choosing the most appropriate technique.
+
+- No of diagonals in a 2d matrix from right to left:
+        (NO OF COLUMNS + NO OF ROWS-1) 
