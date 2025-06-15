@@ -1,6 +1,6 @@
 Some important points and tips to consider:
 
-- If for array a range sum question for subarray is give, always think of prefix sum algo
+- If for array a range sum question for subarray is given, always think of prefix sum algo.
 - To find total sum of all subarray sum, just use contribution technique {sum += (i+1) * (n-1)}
 - Jab bhi tum kisi loop ke andar ek list bana rahe ho aur usse result mein daal rahe ho,
     hamesha uska copy banake daalo — warna sab result same reference ban jaayenge.
