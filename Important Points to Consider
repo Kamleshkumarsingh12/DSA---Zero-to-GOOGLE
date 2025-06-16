@@ -32,3 +32,5 @@ Some important points and tips to consider:
             }
             ans[row] = sum;
         }
+
+- In anti-diagonals, the sum of indices (i+j) is constant.
