@@ -11,3 +11,24 @@ Some important points and tips to consider:
 
 - No of diagonals in a 2d matrix from right to left:
         (NO OF COLUMNS + NO OF ROWS-1) 
+
+- COL-WISE SUM:
+         for(int col=0;col<m;col++)
+        {
+            int sum = 0;
+            for(int row=0;row<n;row++)
+            {
+                sum += A[row][col];
+            }
+            ans[col] = sum;
+        }
+- ROW-WISE SUM:
+         for(int row=0;row<n;row++)
+        {
+            int sum = 0;
+            for(int col=0;col<m;col++)
+            {
+                sum += A[row][col];
+            }
+            ans[row] = sum;
+        }
