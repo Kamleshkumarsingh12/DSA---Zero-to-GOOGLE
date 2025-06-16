@@ -34,3 +34,4 @@ Some important points and tips to consider:
         }
 
 - In anti-diagonals, the sum of indices (i+j) is constant.
+- In Java, when we create a new integer array, it's automatically initialized with zeros.
