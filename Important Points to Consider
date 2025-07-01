@@ -35,3 +35,9 @@ Some important points and tips to consider:
 
 - In anti-diagonals, the sum of indices (i+j) is constant.
 - In Java, when we create a new integer array, it's automatically initialized with zeros.
+
+- In programming there are 256 characters. ASCII code goes from 0  -> 256
+    - A|Z = 65 to 90
+    - a|z = 97 to 122
+    - A + 32 = a ......
+    - 0|9 = 48 to 57
