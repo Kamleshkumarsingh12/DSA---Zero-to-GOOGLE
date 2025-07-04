@@ -41,3 +41,4 @@ Some important points and tips to consider:
     - a|z = 97 to 122
     - A + 32 = a ......
     - 0|9 = 48 to 57
+- No of Substrings in a String is same as no of Subarrays in an Array:- size of string(size of string+1)/2  || n(n+1)/2
