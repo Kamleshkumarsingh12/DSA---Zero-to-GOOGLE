@@ -38,3 +38,35 @@ public class Solution {
 -For every starting index i, you explore all subarrays ending at j ≥ i.
 -Track the sum and only update answer if it is ≤ B.
 -This is brute force — can be optimized using sliding window (only if all numbers are non-negative).
+
+______________------------------------___________________________---------------------___________________________--------------------____________
+
+✅ OPTIMISED using Sliding window [O(N)]:
+- Using two pointers
+- i = 0; j=0;
+- when sum<=B, will keep addign the elements on the right, i.e. j++
+- when sum>B, will decrement the current ith ele from the sum and will move the ith pointer to the right by 1, i.e. i++
+- Keep updating the max Sum
+
+Code (Sliding Window - Clean and Beginner Friendly):
+~~JAVA~~
+public int maxSubarray(int A, int B, int[] C) {
+    int start = 0, end = 0;
+    int sum = 0;
+    int maxSum = 0; // 0 is safest default if no subarray is valid
+    while (end < A) {
+        sum += C[end]; // include current element
+        // Jab tak sum > B hai, start pointer aage badhao
+        while (sum > B && start <= end) {
+            sum -= C[start];
+            start++;
+        }
+        // Valid subarray with sum <= B
+        maxSum = Math.max(maxSum, sum);
+        end++; // move window ahead
+    }
+    return maxSum;
+}
+
+__________________________________________________________________________________________________________
+
