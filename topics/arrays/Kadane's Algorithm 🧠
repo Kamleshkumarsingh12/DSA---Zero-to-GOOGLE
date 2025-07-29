@@ -34,17 +34,20 @@ Given an array `arr[]` of size `n`, find the contiguous subarray (containing at 
 
 ## 💻 Code (Java)
 ```java
-public class KadanesAlgorithm {
+public class KadanesEasyVersion {
     public static int maxSubArraySum(int[] arr) {
-        int maxSoFar = arr[0];
-        int maxEndingHere = arr[0];
-
-        for (int i = 1; i < arr.length; i++) {
-            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
-            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            currSum += arr[i];
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+            if (currSum < 0) {
+                currSum = 0;
+            }
         }
-
-        return maxSoFar;
+        return maxSum;
     }
 
     public static void main(String[] args) {
@@ -52,6 +55,7 @@ public class KadanesAlgorithm {
         System.out.println("Maximum Subarray Sum is: " + maxSubArraySum(arr));
     }
 }
+
 
 ________________________________________________________________________________________-
 
