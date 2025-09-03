@@ -1,25 +1,24 @@
-Prefix sum Why it matters: You precompute cumulative totals so any range
-query becomes constant-time. It generalizes to counts, parity, 2D grids,
-and even range updates (via difference arrays).
+# Essential Array Algorithms & Techniques
 
-Core idea and when to use - Concept: Build an array P where
-P\[i\]=A\[0\]+...+A\[i\]. Then any range sum \[l,r\] is
-P\[r\]-P\[l-1\]. - Use when: You have many range queries, need quick
-"how many up to here?" counts, or want to transform range updates to
-point updates (difference array).
+## Prefix Sum
 
-Patterns - 1D range sum: - Precompute once in O(n), answer each query in
-O(1). - Counts as prefix sums: - Convert a condition into 0/1 and
-prefix-sum it to get counts in ranges. - Prefix with HashMap (subarray
-sum = k): - Track counts of previous prefix sums; at index i, add how
-many times P\[i\]-k appeared. - 2D prefix: - For matrices: PS\[r\]\[c\]
-= PS\[r-1\]\[c\]+PS\[r\]\[c-1\]-PS\[r-1\]\[c-1\]+A\[r\]\[c\]. -
-Difference array (range updates): - To add v on \[l,r\], do D\[l\]+=v;
-if r+1\<n then D\[r+1\]-=v. Final array is prefix of D.
+### Why it matters
+You precompute cumulative totals so any range query becomes constant-time. It generalizes to counts, parity, 2D grids, and even range updates (via difference arrays).
 
-Java examples
+### Core idea and when to use
+- **Concept**: Build an array P where P[i]=A[0]+⋯+A[i]. Then any range sum [l,r] is P[r]-P[l-1].
+- **Use when**: You have many range queries, need quick "how many up to here?" counts, or want to transform range updates to point updates (difference array).
 
-``` java
+### Patterns
+- **1D range sum**: Precompute once in O(n), answer each query in O(1).
+- **Counts as prefix sums**: Convert a condition into 0/1 and prefix-sum it to get counts in ranges.
+- **Prefix with HashMap (subarray sum = k)**: Track counts of previous prefix sums; at index i, add how many times P[i]-k appeared.
+- **2D prefix**: For matrices: PS[r][c] = PS[r-1][c]+PS[r][c-1]-PS[r-1][c-1]+A[r][c].
+- **Difference array (range updates)**: To add v on [l,r], do D[l]+=v; if r+1<n then D[r+1]-=v. Final array is prefix of D.
+
+### Java Examples
+
+```java
 // 1D prefix sum + range query
 long[] buildPrefix(int[] a) {
     long[] pref = new long[a.length];
@@ -30,6 +29,7 @@ long[] buildPrefix(int[] a) {
     }
     return pref;
 }
+
 long rangeSum(long[] pref, int l, int r) {
     if (l == 0) return pref[r];
     return pref[r] - pref[l - 1];
@@ -62,6 +62,7 @@ long[][] build2DPrefix(int[][] g) {
     }
     return ps;
 }
+
 long rectSum(long[][] ps, int r1, int c1, int r2, int c2) {
     // r1..r2, c1..c2 are 0-based inclusive
     r1++; c1++; r2++; c2++;
@@ -87,33 +88,32 @@ int[] applyRangeAdds(int n, int[][] updates) {
 }
 ```
 
-Pitfalls and tips - Overflow: Use long for sums. - Indices: For 1D,
-handle l = 0 separately; for 2D, 1-based padding simplifies
-boundaries. - HashMap approach: Works with negatives; two-pointers do
-not. - Memory: 2D prefix adds one extra row/col to simplify math.
+### Pitfalls and tips
+- **Overflow**: Use long for sums.
+- **Indices**: For 1D, handle l = 0 separately; for 2D, 1-based padding simplifies boundaries.
+- **HashMap approach**: Works with negatives; two-pointers do not.
+- **Memory**: 2D prefix adds one extra row/col to simplify math.
 
-------------------------------------------------------------------------
+---
 
-Carry forward Why it matters: You maintain running information as you
-scan, so each step uses what you've already computed. It's the backbone
-of Kadane's, running min/max, last-seen indices, and "state DP" on
-arrays.
+## Carry Forward
 
-Core idea and when to use - Concept: Keep a small "state" that
-summarizes everything needed up to index i, then update it for i+1. -
-Use when: Best-so-far or count-so-far problems, last occurrence
-tracking, streaming constraints, or when recomputation is costly.
+### Why it matters
+You maintain running information as you scan, so each step uses what you've already computed. It's the backbone of Kadane's, running min/max, last-seen indices, and "state DP" on arrays.
 
-Patterns - Kadane's (max subarray sum): - Carry the best ending at i:
-bestEnd = max(A\[i\], bestEnd + A\[i\]). - Running extrema: - Track
-maxSoFar, minSoFar, and update in O(1) per step. - Last seen index /
-frequency: - For constraints like "no repeats in window," carry an
-array/map of last positions. - State compression DP: - Many 1D DPs
-reduce to a few carried variables.
+### Core idea and when to use
+- **Concept**: Keep a small "state" that summarizes everything needed up to index i, then update it for i+1.
+- **Use when**: Best-so-far or count-so-far problems, last occurrence tracking, streaming constraints, or when recomputation is costly.
 
-Java examples
+### Patterns
+- **Kadane's (max subarray sum)**: Carry the best ending at i: bestEnd = max(A[i], bestEnd + A[i]).
+- **Running extrema**: Track maxSoFar, minSoFar, and update in O(1) per step.
+- **Last seen index / frequency**: For constraints like "no repeats in window," carry an array/map of last positions.
+- **State compression DP**: Many 1D DPs reduce to a few carried variables.
 
-``` java
+### Java Examples
+
+```java
 // Kadane's algorithm (handles all negative arrays)
 long maxSubarraySum(int[] a) {
     long bestEnd = a[0];
@@ -150,6 +150,7 @@ int[] prefixMax(int[] a) {
     }
     return pm;
 }
+
 int[] suffixMin(int[] a) {
     int n = a.length;
     int[] sm = new int[n];
@@ -162,26 +163,37 @@ int[] suffixMin(int[] a) {
 }
 ```
 
-Pitfalls and tips - Initialization: Kadane must start from a\[0\] to
-handle all negatives. - Resets: Only reset the state when it improves
-the objective. - Maps: For last-seen tracking, update start pointer
-correctly to avoid shrinking backwards.
+### Pitfalls and tips
+- **Initialization**: Kadane must start from a[0] to handle all negatives.
+- **Resets**: Only reset the state when it improves the objective.
+- **Maps**: For last-seen tracking, update start pointer correctly to avoid shrinking backwards.
 
-------------------------------------------------------------------------
+---
 
-Sliding window Why it matters: You maintain a contiguous window and move
-its ends to satisfy constraints. It's perfect for fixed-length
-aggregates and variable-length constraints on non-negative arrays or
-with frequency maps.
+## Sliding Window
 
-Core idea and when to use - Concept: Two pointers define a window.
-Expand right; shrink left when constraints break. - Use when:
-Fixed-length k, or variable-length with monotone constraints (sum ≤ S
-with non-negatives, at most K distinct, frequency bounds).
+### Why it matters
+You maintain a contiguous window and move its ends to satisfy constraints. It's perfect for fixed-length aggregates and variable-length constraints on non-negative arrays or with frequency maps.
 
-Patterns - Fixed length k: max/avg/sum
+### Core idea and when to use
+- **Concept**: Two pointers define a window. Expand right; shrink left when constraints break.
+- **Use when**: Fixed-length k, or variable-length with monotone constraints (sum ≤ S with non-negatives, at most K distinct, frequency bounds).
 
-``` java
+### Patterns
+
+#### Fixed length k: max/avg/sum
+Keep running sum; add a[r], remove a[r-k].
+
+#### Variable length with non-negative numbers (sum ≤ S / shortest ≥ S)
+Expand right; while sum > S, move left.
+
+#### At most K distinct (or frequency-bounded)
+Use a frequency map; shrink when distinct > K.
+
+### Java Examples
+
+```java
+// Fixed length k max sum
 long maxSumFixedK(int[] a, int k) {
     long s = 0, best = Long.MIN_VALUE;
     for (int i = 0; i < a.length; i++) {
@@ -191,11 +203,8 @@ long maxSumFixedK(int[] a, int k) {
     }
     return best;
 }
-```
 
--   Variable length with non-negative numbers (sum ≤ S / shortest ≥ S)
-
-``` java
+// Variable length with sum at most S (non-negative numbers)
 int longestWithSumAtMostSNonNeg(int[] a, long S) {
     int n = a.length, l = 0, ans = 0;
     long sum = 0;
@@ -207,6 +216,7 @@ int longestWithSumAtMostSNonNeg(int[] a, long S) {
     return ans;
 }
 
+// Minimum length with sum at least S (non-negative numbers)
 int minLenWithSumAtLeastSNonNeg(int[] a, long S) {
     int n = a.length, l = 0, ans = Integer.MAX_VALUE;
     long sum = 0;
@@ -219,11 +229,8 @@ int minLenWithSumAtLeastSNonNeg(int[] a, long S) {
     }
     return ans == Integer.MAX_VALUE ? -1 : ans;
 }
-```
 
--   At most K distinct (or frequency-bounded)
-
-``` java
+// Longest subarray with at most K distinct elements
 int longestSubarrayAtMostKDistinct(int[] a, int K) {
     java.util.Map<Integer, Integer> freq = new java.util.HashMap<>();
     int l = 0, ans = 0, distinct = 0;
@@ -241,26 +248,40 @@ int longestSubarrayAtMostKDistinct(int[] a, int K) {
 }
 ```
 
-Pitfalls and tips - Negatives present: Classic sum-based two-pointers
-break; use prefix-sum + HashMap or other strategies. - Shrink carefully:
-While-loops must truly restore constraints. - Frequency maps: Remove
-keys when count hits zero to keep "distinct" accurate.
+### Pitfalls and tips
+- **Negatives present**: Classic sum-based two-pointers break; use prefix-sum + HashMap or other strategies.
+- **Shrink carefully**: While-loops must truly restore constraints.
+- **Frequency maps**: Remove keys when count hits zero to keep "distinct" accurate.
 
-------------------------------------------------------------------------
+---
 
-Contribution technique Why it matters: Instead of summing over
-subarrays, sum each element's contribution across all subarrays/pairs
-directly. This converts nested loops into linear scans, often with
-monotonic stacks.
+## Contribution Technique
 
-Core idea and when to use - Concept: Count how many times an element
-participates in the target structure, multiply by its value, and sum. -
-Use when: "Sum over all subarrays" for sums, mins, maxes; also bitwise
-contributions; products with careful transforms.
+### Why it matters
+Instead of summing over subarrays, sum each element's contribution across all subarrays/pairs directly. This converts nested loops into linear scans, often with monotonic stacks.
 
-Patterns - Sum of all subarray sums in O(n):
+### Core idea and when to use
+- **Concept**: Count how many times an element participates in the target structure, multiply by its value, and sum.
+- **Use when**: "Sum over all subarrays" for sums, mins, maxes; also bitwise contributions; products with careful transforms.
 
-``` java
+### Patterns
+
+#### Sum of all subarray sums in O(n)
+A[i] appears in (i+1)·(n-i) subarrays.
+
+#### Sum of subarray minimums (monotonic stack)
+For each i, find distance to previous strictly smaller and next smaller-or-equal to avoid double count. Contribution is A[i]·L·R.
+
+#### Sum of subarray maximums (monotonic stack)
+Mirror of minimums: use previous greater and next greater-or-equal.
+
+#### Bitwise contributions (quick sketch)
+For XOR/sum over subarrays, count how often bit b is set in the induced structure, multiply by 2^b. Often needs prefix parity or segment counting.
+
+### Java Examples
+
+```java
+// Sum of all subarray sums
 long sumOfAllSubarraySums(int[] a) {
     long n = a.length, ans = 0;
     for (int i = 0; i < n; i++) {
@@ -269,11 +290,8 @@ long sumOfAllSubarraySums(int[] a) {
     }
     return ans;
 }
-```
 
--   Sum of subarray minimums (monotonic stack):
-
-``` java
+// Sum of subarray minimums
 long sumOfSubarrayMinimums(int[] a) {
     int n = a.length;
     int[] ple = new int[n]; // previous less element (strictly)
@@ -287,6 +305,7 @@ long sumOfSubarrayMinimums(int[] a) {
         st.push(i);
     }
     st.clear();
+    
     // NLE
     for (int i = n - 1; i >= 0; i--) {
         while (!st.isEmpty() && a[st.peek()] >= a[i]) st.pop();
@@ -297,16 +316,13 @@ long sumOfSubarrayMinimums(int[] a) {
     long ans = 0;
     for (int i = 0; i < n; i++) {
         long L = i - ple[i];
-        long R = nle[i] - i;
+        long R = n - i <= 0 ? 0 : nle[i] - i;
         ans += (long) a[i] * L * R;
     }
     return ans;
 }
-```
 
--   Sum of subarray maximums (monotonic stack):
-
-``` java
+// Sum of subarray maximums
 long sumOfSubarrayMaximums(int[] a) {
     int n = a.length;
     int[] pge = new int[n]; // previous greater (strictly)
@@ -319,6 +335,7 @@ long sumOfSubarrayMaximums(int[] a) {
         st.push(i);
     }
     st.clear();
+    
     for (int i = n - 1; i >= 0; i--) {
         while (!st.isEmpty() && a[st.peek()] <= a[i]) st.pop();
         nge[i] = st.isEmpty() ? n : st.peek();
@@ -335,34 +352,41 @@ long sumOfSubarrayMaximums(int[] a) {
 }
 ```
 
--   Bitwise contributions (quick sketch):
--   For XOR/sum over subarrays, count how often bit b is set in the
-    induced structure, multiply by 2\^b. Often needs prefix parity or
-    segment counting.
+### Pitfalls and tips
+- **Tie-breaking in stacks**: Use strict vs non-strict comparisons carefully to avoid double counting.
+- **Bounds**: Use -1 and n sentinels for clean distances.
+- **Overflow**: Contributions grow like O(n²); keep totals in long and mod if required.
 
-Pitfalls and tips - Tie-breaking in stacks: Use strict vs non-strict
-comparisons carefully to avoid double counting. - Bounds: Use -1 and n
-sentinels for clean distances. - Overflow: Contributions grow like
-O(n\^2); keep totals in long and mod if required.
+---
 
-------------------------------------------------------------------------
+## Quick Checklist
 
-Quick checklist - Prefix sum: Build once, answer many; HashMap for
-"equals k" with negatives; 2D with 1-based pad; difference array for
-range updates. - Carry forward: Keep only what you need; Kadane;
-last-seen indices; running extrema. - Sliding window: Fixed k is
-trivial; variable-length works cleanly with non-negatives or with
-frequency maps; negatives break sum-based windows. - Contribution: Count
-appearances via distances; monotonic stacks for mins/maxes; careful
-inequality choices.
+- **Prefix sum**: Build once, answer many; HashMap for "equals k" with negatives; 2D with 1-based pad; difference array for range updates.
+- **Carry forward**: Keep only what you need; Kadane; last-seen indices; running extrema.
+- **Sliding window**: Fixed k is trivial; variable-length works cleanly with non-negatives or with frequency maps; negatives break sum-based windows.
+- **Contribution**: Count appearances via distances; monotonic stacks for mins/maxes; careful inequality choices.
 
-Java utility snippets you'll reuse
+## Java Utility Snippets
 
-``` java
+```java
 // Safe add with mod
-long addMod(long a, long b, long mod) { long x = a + b; if (x >= mod) x -= mod; return x; }
+long addMod(long a, long b, long mod) { 
+    long x = a + b; 
+    if (x >= mod) x -= mod; 
+    return x; 
+}
+
 // Power of two (for bit contributions)
-long pow2(int b) { return 1L << b; }
+long pow2(int b) { 
+    return 1L << b; 
+}
+
 // Clear stack idiom
-void clear(java.util.Deque<Integer> st) { st.clear(); }
+void clear(java.util.Deque<Integer> st) { 
+    st.clear(); 
+}
 ```
+
+---
+
+*This guide covers the essential array algorithms and techniques required for competitive programming and technical interviews. Master these patterns and you'll be able to tackle most array-based problems efficiently.*
