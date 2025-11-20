@@ -1,22 +1,29 @@
 *Brute*:
-ArrayList<Integer> neg = new ArrayList<>();
-        for(int i=0;i<=n-k;i++)
-        {
-            boolean found = false;
-            for(int j=i;j<i+k;j++)
-            {
-                if(arr[j] < 0){
-                    neg.add(arr[j]);
-                    found = true;
-                    break;
-                }
-            }
-            if(found == false){
-                neg.add(0);   
+static List<Integer> firstNegInt(int arr[], int k) {
+    int n = arr.length;
+    ArrayList<Integer> result = new ArrayList<>();
+    
+    // Har window ko check karo
+    for(int i = 0; i <= n-k; i++) {
+        boolean found = false;  // Flag to track if negative found
+        
+        // Current window mein first negative dhundo
+        for(int j = i; j < i+k; j++) {
+            if(arr[j] < 0) {
+                result.add(arr[j]);
+                found = true;
+                break;  // First negative mil gaya, aage check mat karo
             }
         }
-        return neg;
-
+        
+        // Agar poore window mein koi negative nahi mila
+        if(!found) {
+            result.add(0);
+        }
+    }
+    
+    return result;
+}
 
   *Optimised - Sliding window/queue*
   int n = arr.length;
