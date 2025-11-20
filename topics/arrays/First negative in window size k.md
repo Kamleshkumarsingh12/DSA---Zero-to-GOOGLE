@@ -26,10 +26,10 @@ static List<Integer> firstNegInt(int arr[], int k) {
 }
 
   *Optimised - Sliding window/queue*
-  int n = arr.length;
+  
+    int n = arr.length;
     ArrayList<Integer> result = new ArrayList<>();
     Queue<Integer> queue = new LinkedList<>();  // Store negative numbers
-    
     // Step 1: Process first window (i=0 to k-1)
     for(int i = 0; i < k; i++) {
         if(arr[i] < 0) {
